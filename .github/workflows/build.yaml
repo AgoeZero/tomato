@@ -44,7 +44,7 @@ jobs:
        keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -noprompt -dname "CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, S=Unknown, C=Unknown"
     - name: prepare lambdanative
       working-directory: lambdanative
-      run : |
+      run: |
        cp SETUP.template SETUP
        sed -i 's/ANDROIDAPI=21/ANDROIDAPI=28/g' SETUP
        sed -i 's|/usr/local/android-sdk-*|/home/build/android-sdk|g' SETUP
