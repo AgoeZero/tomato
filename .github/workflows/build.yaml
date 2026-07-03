@@ -54,10 +54,10 @@ jobs:
        sed -i 's|SYS_CC="gcc $SYS|SYS_CC="gcc-14 $SYS|g' targets/linux/host_linux
        sed -i 's|SYS_CXX="g++ $SYS|SYS_CXX="g++-14 $SYS|g' targets/linux/host_linux
        sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
-   - name: copy source
+    - name: copy source
       run: |
        cp -r tomato lambdanative/apps
-   - name: linux builds
+    - name: linux builds
       working-directory: lambdanative
       run: |
        ./configure tomato
