@@ -29,7 +29,7 @@
         (set! gui (make-glgui))
         (glgui-box gui 0 0 width height Black)
         (glgui-box gui (center (vh 30)) (vh 5) (vh 30) (vh 10) Green)
-        (glgui-button-string gui (center (vh 30)) (vh 5) (vh 30) (vh 10) "Load Image" dejavu_18.fnt (camera-start))
+        (glgui-button-string gui (center (vh 30)) (vh 5) (vh 30) (vh 10) "Load Image" dejavu_18.fnt (camera-start "/data/try.jpg"))
         (result " Leaf Mold (98%)" 20)
         (result " Bacterial Spot (73%)" 30)
         (result " Early Blight (54%)" 40)
