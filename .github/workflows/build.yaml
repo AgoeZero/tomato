@@ -66,7 +66,7 @@ jobs:
       working-directory: lambdanative
       run: |
        ./configure tomato
-       #Temporarily disable linux build
+       # Temporarily disable GNU/Linux build
        #make
     - name: android builds
       working-directory: lambdanative
