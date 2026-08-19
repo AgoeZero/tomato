@@ -17,27 +17,32 @@ jobs:
     - run: cat /etc/os-release
     - name: install dependencies
       run: |
-       dnf -y install alsa-lib-devel ant autoconf automake bc curl gambit-c
-       dnf -y install gcc-14 git grep ImageMagick-devel java-25-openjdk-devel
-       dnf -y install libtool libXext-devel make mesa-libGL-devel
-       dnf -y install mesa-libGLU-devel netpbm-devel patch perl-FindBin
-       dnf -y install portaudio python3-sdkmanager sed tar tcl-devel texlive
-       dnf -y install which wget zip
+       dnf -y install alsa-lib-devel ant autoconf automake bc cmake curl
+       dnf -y install gambit-c gcc14 gcc14-c++ git grep ImageMagick-devel
+       dnf -y install java-25-openjdk-devel libtool libXext-devel make
+       dnf -y install mesa-libGL-devel mesa-libGLU-devel netpbm-devel patch
+       dnf -y install perl-FindBin portaudio python3-sdkmanager sed tar
+       dnf -y install tcl-devel texlive which wget zip
     - name: Get LambdaNative
       run: |
-       git clone https://github.com/part-cw/lambdanative
+       # Use work in progress tinymaix branch for now
+       git clone https://github.com/bkmgit/lambdanative
+    - name: Get branch for Tinymaix
+      working-directory: lambdanative
+      run: |
+       git checkout tinymaix
     - name: setup android
       run: |
        # https://stackoverflow.com/a/77215395
        # https://computingforgeeks.com/install-and-use-android-studio-on-fedora/
        mkdir -p /home/build/android-sdk
        export ANDROID_HOME=/home/build/android-sdk
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platforms;android-28"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platforms;android-37.0"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "build-tools;29.0.3"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "tools"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "extras;android;m2repository"
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "ndk-bundle;r28"
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platform-tools"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "ndk-bundle;r30"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platform-tools;37.0.0"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk --licenses
        # https://coderwall.com/p/r09hoq/android-generate-release-debug-keystores
        # https://stackoverflow.com/a/13578480
@@ -61,7 +66,8 @@ jobs:
       working-directory: lambdanative
       run: |
        ./configure tomato
-       make
+       # Temporarily disable GNU/Linux build
+       #make
     - name: android builds
       working-directory: lambdanative
       run: |
