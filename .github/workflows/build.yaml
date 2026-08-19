@@ -37,12 +37,12 @@ jobs:
        # https://computingforgeeks.com/install-and-use-android-studio-on-fedora/
        mkdir -p /home/build/android-sdk
        export ANDROID_HOME=/home/build/android-sdk
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platforms;android-28"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platforms;android-37.0"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "build-tools;29.0.3"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "tools"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "extras;android;m2repository"
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "ndk-bundle;r28"
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platform-tools"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "ndk-bundle;r30"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platform-tools;37.0.0"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk --licenses
        # https://coderwall.com/p/r09hoq/android-generate-release-debug-keystores
        # https://stackoverflow.com/a/13578480
