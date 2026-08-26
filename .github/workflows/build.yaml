@@ -25,7 +25,7 @@ jobs:
        dnf -y install which wget zip
     - name: Get LambdaNative
       run: |
-       git clone https://github.com/part-cw/lambdanative
+       git clone -b tinymaix https://github.com/bkmgit/lambdanative.git
     - name: setup android
       run: |
        # https://stackoverflow.com/a/77215395
