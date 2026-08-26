@@ -22,7 +22,7 @@ jobs:
        dnf -y install libtool libXext-devel make mesa-libGL-devel
        dnf -y install mesa-libGLU-devel netpbm-devel patch perl-FindBin
        dnf -y install portaudio python3-sdkmanager sed tar tcl-devel texlive
-       dnf -y install which wget zip
+       dnf -y install which wget zip cmake
     - name: Get LambdaNative
       run: |
        git clone -b tinymaix https://github.com/bkmgit/lambdanative.git
