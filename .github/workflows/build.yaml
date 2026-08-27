@@ -61,7 +61,7 @@ jobs:
       working-directory: lambdanative
       run: |
        ./configure tomato
-       make
+       ./make.sh all
     - name: android builds
       working-directory: lambdanative
       run: |
