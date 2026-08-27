@@ -79,7 +79,7 @@ jobs:
         cp targets/android/libs/core-extracted/classes.jar targets/android/libs/androidx-core.jar
 
 
-        ./configure tomato android debug
+        ./configure tomato android verbose
         ./make.sh all
     - uses: actions/upload-artifact@v7.0.1
       with:
