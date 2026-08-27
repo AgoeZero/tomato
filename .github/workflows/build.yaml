@@ -72,15 +72,19 @@ jobs:
         SUPPORT_DIR="/home/build/.cache/lambdanative/android/support"
         mkdir -p "$SUPPORT_DIR"
 
-        # 1. Download AndroidX Annotation JAR directly
+        # 1. Download AndroidX Annotation JAR from Google Maven
         curl -fL -o "$SUPPORT_DIR/androidx-annotation.jar" \
-          "https://repo1.maven.org/maven2/androidx/annotation/annotation/1.7.0/annotation-1.7.0.jar"
+          "https://dl.google.com/dl/android/maven2/androidx/annotation/annotation/1.7.0/annotation-1.7.0.jar"
         
-        # 2. Download AndroidX Core Classes JAR directly (bypasses AAR extraction)
-        curl -fL -o "$SUPPORT_DIR/androidx-core.jar" \
-          "https://repo1.maven.org/maven2/androidx/core/core/1.12.0/core-1.12.0-runtime.jar"
+        # 2. Download AndroidX Core AAR from Google Maven
+        curl -fL -o "$SUPPORT_DIR/core.aar" \
+          "https://dl.google.com/dl/android/maven2/androidx/core/core/1.12.0/core-1.12.0.aar"
 
-        # 3. Configure and build
+        # 3. Extract classes.jar from the AAR
+        unzip -p "$SUPPORT_DIR/core.aar" classes.jar > "$SUPPORT_DIR/androidx-core.jar"
+        rm "$SUPPORT_DIR/core.aar"
+
+        # 4. Configure and build
         ./configure tomato android debug
         make
     - uses: actions/upload-artifact@v7.0.1
