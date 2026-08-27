@@ -75,12 +75,12 @@ jobs:
         # Extract it
         unzip targets/android/libs/core-1.19.0.aar -d targets/android/libs/core-extracted/
 
-        # Copy the classes.jar to your libs folder
+        # Copy the classes.jar to libs folder
         cp targets/android/libs/core-extracted/classes.jar targets/android/libs/androidx-core.jar
 
 
         ./configure tomato android debug
-        make
+        ./make.sh all
     - uses: actions/upload-artifact@v7.0.1
       with:
        name: apk
