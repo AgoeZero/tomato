@@ -69,28 +69,16 @@ jobs:
         # Fedora only provides Python3
         sed -i 's/python/python3/g' targets/android/check-tools
         
-        # 1. Resolve dynamic paths using $HOME
-        CACHE_DIR="$HOME/.cache/lambdanative/android/support"
-        TARGET_DIR="$HOME/.lambdanative/targets/android/libs"
-        mkdir -p "$CACHE_DIR"
-        mkdir -p "$TARGET_DIR"
+        # Download the .aar
+        wget -P targets/android/libs https://dl.google.com/android/maven2/androidx/core/core/1.19.0/core-1.19.0.aar
 
-        # 2. Download AndroidX dependencies from Google Maven
-        curl -fL -o "$CACHE_DIR/androidx-annotation.jar" \
-          "https://dl.google.com/dl/android/maven2/androidx/annotation/annotation/1.7.0/annotation-1.7.0.jar"
-        
-        curl -fL -o "$CACHE_DIR/core.aar" \
-          "https://dl.google.com/dl/android/maven2/androidx/core/core/1.12.0/core-1.12.0.aar"
+        # Extract it
+        unzip targets/android/libs/core-1.19.0.aar -d targets/android/libs/core-extracted/
 
-        # 3. Extract classes.jar from the AAR
-        unzip -p "$CACHE_DIR/core.aar" classes.jar > "$CACHE_DIR/androidx-core.jar"
-        rm "$CACHE_DIR/core.aar"
+        # Copy the classes.jar to your libs folder
+        cp targets/android/libs/core-extracted/classes.jar targets/android/libs/androidx-core.jar
 
-        # 4. Copy JARs directly to targets/android/libs/ so Ant includes them automatically
-        cp "$CACHE_DIR"/*.jar "$TARGET_DIR/"
-        cp "$CACHE_DIR"/*.jar targets/android/libs/ 2>/dev/null || true
 
-        # 5. Configure and build
         ./configure tomato android debug
         make
     - uses: actions/upload-artifact@v7.0.1
