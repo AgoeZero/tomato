@@ -69,22 +69,18 @@ jobs:
         # Fedora only provides Python3
         sed -i 's/python/python3/g' targets/android/check-tools
         
-        # 1. Create the support directory LambdaNative uses
         SUPPORT_DIR="/home/build/.cache/lambdanative/android/support"
         mkdir -p "$SUPPORT_DIR"
 
-        # 2. Download AndroidX dependencies into the support folder
-        curl -L -o "$SUPPORT_DIR/androidx-annotation.jar" \
+        # 1. Download AndroidX Annotation JAR directly
+        curl -fL -o "$SUPPORT_DIR/androidx-annotation.jar" \
           "https://repo1.maven.org/maven2/androidx/annotation/annotation/1.7.0/annotation-1.7.0.jar"
         
-        curl -L -o "$SUPPORT_DIR/core.aar" \
-          "https://repo1.maven.org/maven2/androidx/core/core/1.12.0/core-1.12.0.aar"
-        
-        # 3. Extract classes.jar from the AAR so Ant can read it
-        unzip -p "$SUPPORT_DIR/core.aar" classes.jar > "$SUPPORT_DIR/androidx-core.jar"
-        rm "$SUPPORT_DIR/core.aar"
+        # 2. Download AndroidX Core Classes JAR directly (bypasses AAR extraction)
+        curl -fL -o "$SUPPORT_DIR/androidx-core.jar" \
+          "https://repo1.maven.org/maven2/androidx/core/core/1.12.0/core-1.12.0-runtime.jar"
 
-        # 4. Proceed with build
+        # 3. Configure and build
         ./configure tomato android debug
         make
     - uses: actions/upload-artifact@v7.0.1
