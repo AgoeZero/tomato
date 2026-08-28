@@ -39,6 +39,8 @@ jobs:
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "ndk-bundle;r28"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platform-tools"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk --licenses
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "extras;androidx;androidx"
+
        # https://coderwall.com/p/r09hoq/android-generate-release-debug-keystores
        # https://stackoverflow.com/a/13578480
        keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -noprompt -dname "CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, S=Unknown, C=Unknown"
@@ -68,17 +70,6 @@ jobs:
       run: |
         # Fedora only provides Python3
         sed -i 's/python/python3/g' targets/android/check-tools
-        
-        # Download the .aar
-        wget -P targets/android/libs https://dl.google.com/android/maven2/androidx/core/core/1.19.0/core-1.19.0.aar
-
-        # Extract it
-        unzip targets/android/libs/core-1.19.0.aar -d targets/android/libs/core-extracted/
-
-        # Copy the classes.jar to libs folder
-        cp targets/android/libs/core-extracted/classes.jar targets/android/libs/androidx-core.jar
-
-
         ./configure tomato android verbose
         ./make.sh all
     - uses: actions/upload-artifact@v7.0.1
