@@ -66,14 +66,14 @@ jobs:
        wget -q https://maven.google.com/androidx/core/core/1.13.1/core-1.13.1.aar -O modules/camera/android_jars/core-1.13.1.aar
        unzip -q modules/camera/android_jars/core-1.13.1.aar -d modules/camera/android_jars/
        mv modules/camera/android_jars/classes.jar modules/camera/android_jars/androidx-core.jar
-       ./configure tomato linux verbose
+       ./configure tomato linux debug
        ./make.sh all
     - name: android builds
       working-directory: lambdanative
       run: |
         # Fedora only provides Python3
         sed -i 's/python/python3/g' targets/android/check-tools
-        ./configure tomato android verbose
+        ./configure tomato android debug
         ./make.sh all
     - uses: actions/upload-artifact@v7.0.1
       with:
