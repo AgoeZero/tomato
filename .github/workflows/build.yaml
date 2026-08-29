@@ -39,7 +39,7 @@ jobs:
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "ndk-bundle;r28"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platform-tools"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk --licenses
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "extras;androidx;androidx"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "extras;google;m2repository"
 
        # https://coderwall.com/p/r09hoq/android-generate-release-debug-keystores
        # https://stackoverflow.com/a/13578480
