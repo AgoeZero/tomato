@@ -63,7 +63,7 @@ jobs:
       working-directory: lambdanative
       run: |
        mkdir -p modules/camera/android_jars
-       wget -q https://maven.google.com/androidx/core/core/1.13.1/core-1.13.1.aar -O modules/camera/android_jar/core-1.13.1.aar
+       wget -q https://maven.google.com/androidx/core/core/1.13.1/core-1.13.1.aar -O modules/camera/android_jars/core-1.13.1.aar
        unzip -q modules/camera/android_jars/core-1.13.1.aar -d modules/camera/android_jars/
        mv modules/camera/android_jars/classes.jar modules/camera/android_jars/androidx-core.jar
        ./configure tomato linux verbose
