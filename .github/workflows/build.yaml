@@ -64,7 +64,7 @@ jobs:
       run: |
        mkdir -p modules/camera/android_jars
        wget -q https://maven.google.com/androidx/core/core/1.13.1/core-1.6.0.aar -O modules/camera/android_jars/core-1.6.0.aar
-       unzip -q modules/camera/android_jars/core-1.13.1.aar -d modules/camera/android_jars/
+       unzip -q modules/camera/android_jars/core-1.6.0.aar -d modules/camera/android_jars/
        mv modules/camera/android_jars/classes.jar modules/camera/android_jars/androidx-core.jar
        ./configure tomato linux debug
        ./make.sh all
