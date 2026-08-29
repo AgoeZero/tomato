@@ -39,7 +39,6 @@ jobs:
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "ndk-bundle;r28"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platform-tools"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk --licenses
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "extras;google;m2repository"
 
        # https://coderwall.com/p/r09hoq/android-generate-release-debug-keystores
        # https://stackoverflow.com/a/13578480
@@ -63,6 +62,10 @@ jobs:
     - name: linux builds
       working-directory: lambdanative
       run: |
+       mkdir -p modules/camera/android_jars
+       wget -q https://maven.google.com/androidx/core/core/1.13.1/core-1.13.1.aar -O modules/mod/android_jar/core-1.13.1.aar
+       unzip -q modules/modules/android_jars/core-1.13.1.aar -d modules/mod/android_jars/
+       mv modules/mod/android_jars/classes.jar modules/mod/android_jars/androidx-core.jar
        ./configure tomato linux verbose
        ./make.sh all
     - name: android builds
