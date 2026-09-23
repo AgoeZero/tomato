@@ -73,7 +73,7 @@ jobs:
       run: |
         # Fedora only provides Python3
         sed -i 's/python/python3/g' targets/android/check-tools
-        ./configure tomato android debug
+        ./configure tomato android debug verbose
         ./make.sh all
     - uses: actions/upload-artifact@v7.0.1
       with:
