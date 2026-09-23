@@ -1,4 +1,4 @@
-name: fedora-build
+name: debian-build
 on:
   push:
     branches: [ main ]
@@ -7,37 +7,44 @@ on:
 
 jobs:
   build:
-    name: fedora
+    name: debian
     runs-on: ubuntu-latest
     container:
-      image: fedora:43
+      image: debian:sid
 
     steps:
     - uses: actions/checkout@v7
     - run: cat /etc/os-release
     - name: install dependencies
       run: |
-       dnf -y install alsa-lib-devel ant autoconf automake bc curl gambit-c
-       dnf -y install gcc-14 gcc-c++ git grep ImageMagick-devel java-25-openjdk-devel
-       dnf -y install libtool libXext-devel make mesa-libGL-devel
-       dnf -y install mesa-libGLU-devel netpbm-devel patch perl-FindBin
-       dnf -y install portaudio python3-sdkmanager sed tar tcl-devel texlive
-       dnf -y install which wget zip cmake
+       apt -y update
+       apt -y install android-platform-tools-base android-sdk android-sdk-helper
+       apt -y install android-sdk-build-tools android-sdk-platform-tools ant
+       apt -y install autoconf automake bc cmake gambc gcc git g++ imagemagick make
+       apt -y install libasound2-dev libfindbin-libs-perl libgl1-mesa-dev
+       apt -y install libglu1-mesa-dev libgradle-android-plugin-java libnetpbm-dev
+       apt -y install libportaudio2 libtool libxext-dev openjdk-17-jdk
+       apt -y install sdkmanager tar tcl-dev texlive tree unzip wget zip
     - name: Get LambdaNative
       run: |
-       git clone -b tinymaix https://github.com/bkmgit/lambdanative.git
+       git clone --branch=tinymaix https://github.com/bkmgit/lambdanative.git
+    - name: Get fixed commit
+      working-directory: lambdanative
+      run: |
+        git checkout d936db275b8f40c9e1381783df03c8981ecc5481
     - name: setup android
       run: |
        # https://stackoverflow.com/a/77215395
        # https://computingforgeeks.com/install-and-use-android-studio-on-fedora/
        mkdir -p /home/build/android-sdk
+       mkdir -p /home/.cache/lambdanative/android/support
        export ANDROID_HOME=/home/build/android-sdk
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platforms;android-28"
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "build-tools;29.0.3"
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "tools"
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "extras;android;m2repository"
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "ndk-bundle;r28"
-       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platform-tools"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platforms;android-24"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "build-tools;33.0.0"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "tools;24.0.1"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "extras;android;m2repository;24"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "ndk-bundle;r24"
+       echo yes | sdkmanager --sdk_root=/home/build/android-sdk "platform-tools;24.0.0"
        echo yes | sdkmanager --sdk_root=/home/build/android-sdk --licenses
 
        # https://coderwall.com/p/r09hoq/android-generate-release-debug-keystores
@@ -47,33 +54,26 @@ jobs:
       working-directory: lambdanative
       run: |
        cp SETUP.template SETUP
-       sed -i 's/ANDROIDAPI=21/ANDROIDAPI=28/g' SETUP
+       sed -i 's/ANDROIDAPI=21/ANDROIDAPI=24/g' SETUP
        sed -i 's|/usr/local/android-sdk-*|/home/build/android-sdk|g' SETUP
        sed -i 's|/usr/local/android-ndk-*|/home/build/android-sdk/ndk-bundle|g' SETUP
        cp PROFILE.template PROFILE
        sed -i 's|SYS_ANDROIDPW="yoursecrethere"|SYS_ANDROIDPW="android"|g' PROFILE
-       sed -i 's|SYS_CC="gcc $SYS|SYS_CC="gcc-14 $SYS|g' targets/linux/host_linux
-       sed -i 's|SYS_CXX="g++ $SYS|SYS_CXX="g++ $SYS|g' targets/linux/host_linux
        sed -i 's|=ranlib|="$(which ranlib)"|g' targets/linux/host_linux
-       sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
     - name: copy source
       run: |
        cp -r tomato lambdanative/apps
     - name: linux builds
       working-directory: lambdanative
       run: |
-       mkdir -p modules/camera/android_jars
-       wget -q https://maven.google.com/androidx/core/core/1.6.0/core-1.6.0.aar -O modules/camera/android_jars/core-1.6.0.aar
-       unzip -q modules/camera/android_jars/core-1.6.0.aar -d modules/camera/android_jars/
-       mv modules/camera/android_jars/classes.jar modules/camera/android_jars/androidx-core.jar
        ./configure tomato linux debug
-       ./make.sh all
+       #./make.sh all
     - name: android builds
       working-directory: lambdanative
       run: |
         # Fedora only provides Python3
         sed -i 's/python/python3/g' targets/android/check-tools
-        ./configure tomato android debug
+        ./configure tomato android debug verbose
         ./make.sh all
     - uses: actions/upload-artifact@v7.0.1
       with:
