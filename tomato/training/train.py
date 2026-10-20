@@ -1,3 +1,4 @@
+import sys
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
@@ -6,9 +7,9 @@ from tensorflow.keras import layers
 # Configuration
 # ============================================================
 
-DATASET_PATH = "/home/john/Downloads/archive/train"
+DATASET_PATH = sys.argv[1]
 
-MODEL_NAME = "tomato_conv.keras"
+MODEL_NAME = sys.argv[2]
 
 IMAGE_SIZE = 128
 BATCH_SIZE = 16
