@@ -1,7 +1,8 @@
+import sys
 import tensorflow as tf
 
-MODEL = "tomato_conv.keras"
-OUTPUT = "tomato_conv.tflite"
+MODEL = sys.argv[1]
+OUTPUT = sys.argv[2]
 
 model = tf.keras.models.load_model(MODEL)
 
