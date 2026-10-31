@@ -1,37 +1,65 @@
-Tomato Classifier App written in Scheme (LambdaNative)
 
-Project Description
+# Tomato Classifier App
 
-Tomato Leaf Disease Detector is a deep learning application designed to automatically classify diseases in tomato leaves using a lightweight convolutional neural network (CNN). The project provides an end-to-end pipeline for training a custom disease detection model and deploying it to mobile and edge devices.
-What It Does
+A tomato leaf disease classification application written in Scheme using [LambdaNative](https://github.com/bkmgit/lambdanative).
 
-The project enables users to:
+## Project Description
 
-    Train a custom CNN model on a labeled dataset of tomato leaf images to learn disease patterns
-    Convert the trained model to TensorFlow Lite format for efficient deployment on resource-constrained devices like smartphones and IoT devices
+**Tomato Leaf Disease Detector** is a deep learning application designed to automatically identify and classify diseases in tomato leaves using a lightweight Convolutional Neural Network (CNN).
 
-Key Components
+The project provides an end-to-end pipeline for training a custom disease classification model and deploying it to mobile and resource-constrained edge devices.
 
-    train.py – A training script that builds and trains a lightweight CNN architecture optimized for image classification. It processes a dataset organized by disease class and outputs a trained Keras model.
-    convert.py – A conversion utility that transforms the trained Keras model into TensorFlow Lite format, reducing model size and enabling fast inference on edge devices.
+## Features
 
-Model Architecture
+The project provides the following capabilities:
 
-The CNN uses an efficient design with 3 convolutional layers (with strided convolutions for downsampling), global average pooling, and 1×1 convolutional layers acting as dense layers. This architecture is lightweight yet powerful enough for multi-class disease classification.
-Use Case
+- **Disease Classification:** Train a custom CNN model using a labelled dataset of tomato leaf images to recognize different disease patterns.
+- **Model Conversion:** Convert trained models to TensorFlow Lite format for efficient deployment.
+- **Edge Deployment:** Support lightweight inference on resource-constrained devices, including smartphones and IoT devices.
+- **Flexible Classification:** Support multiple disease classes based on the structure of the training dataset.
 
-The application is ideal for agricultural applications where farmers or agronomists need to quickly identify tomato leaf diseases in the field using mobile apps or offline devices. It supports any number of disease classes from the training dataset, making it flexible for different disease detection scenarios.
-Technology Stack
+## Project Structure
 
-Built with TensorFlow and Keras for training, the project leverages modern deep learning frameworks while maintaining simplicity and efficiency.
+| File | Description |
+|---|---|
+| `train.py` | Builds and trains a lightweight CNN architecture using a dataset organized into disease-class directories. Outputs a trained Keras model. |
+| `convert.py` | Converts the trained Keras model into TensorFlow Lite format for efficient deployment on edge devices. |
+
+## Model Architecture
+
+The classification model uses a lightweight CNN architecture designed to balance accuracy and computational efficiency.
+
+Its main components include:
+
+- Three convolutional layers with strided convolutions for spatial downsampling.
+- Global Average Pooling to reduce the number of parameters.
+- 1×1 convolutional layers that serve as fully connected layers for classification.
+
+This architecture provides an efficient solution for multi-class tomato leaf disease classification, particularly on devices with limited computational resources.
+
+## Use Cases
+
+The application is intended for agricultural use cases where farmers, agricultural extension officers, and agronomists need to identify tomato leaf diseases quickly in the field.
+
+By deploying the classifier on mobile and offline-capable devices, users can perform disease classification without requiring a continuous internet connection.
+
+## Technology Stack
+
+- **Scheme:** Application development using LambdaNative.
+- **C:** Native application and inference integration.
+- **Python:** Model training and conversion utilities.
+- **TensorFlow / Keras:** Deep learning model development and training.
+- **TensorFlow Lite:** Model conversion and optimized inference.
+- **TinyMaix:** Lightweight neural network inference on embedded and resource-constrained devices.
 
 ## Third-Party Software
 
 ### DemoCamera
-Portions of this project are based on `DemoCamera`, originally
-developed at the University of British Columbia.
+
+Portions of this project are based on `DemoCamera`, originally developed at the University of British Columbia.
 
 ### TinyMaix
-This project uses the TinyMaix library by Lieff Lee and contributors.
 
-TinyMaix is distributed under the [Apache License 2.0](LICENSE-THIRDPARTY).
+This project uses the [TinyMaix](https://github.com/xxradar/TinyMaix) library by Lieff Lee and contributors.
+
+TinyMaix is distributed under the Apache License 2.0. See [`LICENSE-THIRDPARTY`](LICENSE-THIRDPARTY) for licensing information.
