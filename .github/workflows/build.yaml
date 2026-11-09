@@ -20,7 +20,7 @@ jobs:
       run: |
        dnf -y install alsa-lib-devel ant autoconf automake bc curl gambit-c
        dnf -y install binutils gcc make cmake
-       dnf -y install gcc-14 git grep ImageMagick-devel java-25-openjdk-devel
+       dnf -y install g++-13 gcc-14 git grep ImageMagick-devel java-25-openjdk-devel
        dnf -y install libtool libXext-devel make mesa-libGL-devel
        dnf -y install mesa-libGLU-devel netpbm-devel patch perl-FindBin
        dnf -y install portaudio python3-sdkmanager sed tar tcl-devel texlive
