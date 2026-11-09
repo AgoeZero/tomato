@@ -59,6 +59,7 @@ jobs:
        sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
     - name: Copy Tomato App
       run: |
+        rm -rf tomato
         git clone https://github.com/AgoeZero/tomato.git
         cp -r tomato/tomato lambdanative/apps/
     - name: Linux build
