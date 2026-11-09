@@ -26,6 +26,8 @@ jobs:
        dnf -y install which wget zip
     - name: Get LambdaNative
       run: |
+       git ls-remote --heads https://github.com/bkmgit/lambdanative.git
+
        git clone https://github.com/bkmgit/lambdanative.git -b tinymaix
        cd lambdanative
        git checkout b6e82ee343d8ea3c95e277d7e122baae9a5dc096
