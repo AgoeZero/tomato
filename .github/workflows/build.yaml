@@ -65,6 +65,7 @@ jobs:
     - name: Linux build
       working-directory: lambdanative
       run: |
+        ls -al modules
         ./configure tomato --verbose
         make
     - name: Android build
