@@ -28,7 +28,7 @@ jobs:
       run: |
        git ls-remote --heads https://github.com/bkmgit/lambdanative.git
 
-       git clone https://github.com/bkmgit/lambdanative.git -b tinymaix
+       git clone https://github.com/bkmgit/lambdanative.git -b tinymaix --no-single-branch
        cd lambdanative
        git checkout b6e82ee343d8ea3c95e277d7e122baae9a5dc096
     - name: setup android
