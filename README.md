@@ -63,3 +63,15 @@ Portions of this project are based on `DemoCamera`, originally developed at the 
 This project uses the [TinyMaix](https://github.com/xxradar/TinyMaix) library by Lieff Lee and contributors.
 
 TinyMaix is distributed under the Apache License 2.0. See [`LICENSE-THIRDPARTY`](LICENSE-THIRDPARTY) for licensing information.
+
+## Funding
+
+This project is funded through
+[NGI Mobifree Fund](https://nlnet.nl/mobifree), a fund established by
+[NLnet](https://nlnet.nl) with financial support from the European
+Commission's [Next Generation Internet](https://ngi.eu) program. Learn
+more at the [NLnet project page](https://nlnet.nl/project/F-Droid-LambdaNative).
+
+[<img src="https://nlnet.nl/logo/banner.png" alt="NLnet foundation logo"
+width="20%" />](https://nlnet.nl)
+
