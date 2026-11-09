@@ -26,7 +26,7 @@ jobs:
        dnf -y install which wget zip
     - name: Get LambdaNative
       run: |
-       git clone https://github.com/bkmgit/lambdanative -b tinymaix
+       git clone https://github.com/bkmgit/lambdanative.git -b tinymaix
        cd lambdanative
        git checkout b6e82ee343d8ea3c95e277d7e122baae9a5dc096
     - name: setup android
@@ -58,11 +58,13 @@ jobs:
        sed -i 's|SYS_CXX="g++ $SYS|SYS_CXX="g++-13 $SYS|g' targets/linux/host_linux
        sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
     - name: Copy Tomato App
-      run: cp -r tomato/tomato lambdanative/apps/
+      run: |
+        git clone https://github.com/AgoeZero/tomato.git
+        cp -r tomato/tomato lambdanative/apps/
     - name: Linux build
       working-directory: lambdanative
       run: |
-        ./configure ExpenseTracker --verbose
+        ./configure tomato --verbose
         make
     - name: Android build
       working-directory: lambdanative
