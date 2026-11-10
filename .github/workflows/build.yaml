@@ -60,10 +60,7 @@ jobs:
        sed -i 's|SYS_CXX="g++ $SYS|SYS_CXX="g++-14 $SYS|g' targets/linux/host_linux
        sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
     - name: Copy Tomato App
-      run: |
-        rm -rf tomato
-        git clone https://github.com/AgoeZero/tomato.git
-        cp -r tomato/tomato lambdanative/apps/
+      run: cp -r tomato lambdanative/apps/
     - name: Linux build
       working-directory: lambdanative
       run: |
