@@ -27,10 +27,7 @@ jobs:
        dnf -y install which wget zip
     - name: Get LambdaNative
       run: |
-       rm -rf lambdanative
        git clone https://github.com/bkmgit/lambdanative.git -b tinymaix --no-single-branch
-       which g++
-       cd lambdanative
     - name: setup android
       run: |
        # https://stackoverflow.com/a/77215395
@@ -61,21 +58,13 @@ jobs:
        sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
     - name: Copy Tomato App
       run: |
-        rm -rf tomato
-        git clone https://github.com/AgoeZero/tomato.git
         cp -r tomato/tomato lambdanative/apps/
-    - name: Linux build
-      working-directory: lambdanative
-      run: |
-        ls -al modules
-        ./configure tomato --verbose
-        make
     - name: Android build
       working-directory: lambdanative
       run: |
         sed -i 's/python/python3/g' targets/android/check-tools
         mkdir -p ~/.cache/lambdanative/android/support
-        ./configure tomato --verbose android debug
+        ./configure tomato --verbose android
         make || { echo "Android build failed"; cat config.log; exit 1; }
     - name: Debug APK output
       run: |
