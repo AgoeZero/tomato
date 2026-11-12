@@ -3,7 +3,10 @@ A deep learning project for detecting diseases in tomato leaves using TensorFlow
 
 ## Project Overview
 This project implements an end-to-end pipeline for tomato leaf disease classification:
-1. **train.py** – Trains a custom CNN model on a labeled dataset of tomato leaf images2. **convert.py** – Converts the trained Keras model to TensorFlow Lite format for mobile/edge device deployment
+1. **train.py** – Trains a custom CNN model on a labeled dataset of tomato leaf images
+2. **convert.py** – Converts the trained Keras model to TensorFlow Lite format for mobile/edge device deployment
+3. **training.ipynb** - Contains an IPython notebook with the training and conversion steps, including conversion to TinyMaix format
+
 The model uses a lightweight CNN architecture optimized for inference on resource-constrained devices.
 
 ## Features
@@ -25,25 +28,32 @@ This project uses the **Tomato Leaf Disease Dataset** from Kaggle:
    
 ## Installation
 1. **Clone the repository**:
-   git clone https://github.com/agoezero/tomato.git
-   cd tomato/tomato/training
 
-Install dependencies
+```bash
+git clone https://github.com/agoezero/tomato.git
+cd tomato/training
+```
 
+2. **Install dependencies**
+
+```bash
 pip install -r requirements.txt
+```
 
-Verify installation:
-bash
+3. **Verify installation**:
 
-    python -c "import tensorflow; print(tensorflow.__version__)"
+```bash
+python -c "import tensorflow; print(tensorflow.__version__)"
+```
 
-Usage
-Training the Model
+## Usage
+### Training the Model
 
-Train a new model on your dataset:
-bash
+1. **Train a new model on your dataset**:
 
+```bash
 python train.py /path/to/dataset output_model.keras
+```
 
 Arguments:
 
@@ -51,9 +61,10 @@ Arguments:
     MODEL_NAME – Output filename for the trained Keras model (e.g., model.keras)
 
 Example:
-bash
 
+```bash
 python train.py ./tomato_dataset my_model.keras
+```
 
 Output:
 
@@ -63,12 +74,13 @@ Output:
         Model architecture summary
         Training progress (loss and accuracy per epoch)
 
-Converting to TensorFlow Lite
+2. **Converting to TensorFlow Lite**
 
 Convert a trained Keras model to TensorFlow Lite format:
-bash
 
+```bash
 python convert.py input_model.keras output_model.tflite
+```
 
 Arguments:
 
@@ -76,16 +88,18 @@ Arguments:
     OUTPUT – Output filename for the TensorFlow Lite model
 
 Example:
-bash
 
+```bash
 python convert.py my_model.keras my_model.tflite
+```
 
 Output:
 
     TensorFlow Lite model saved as .tflite file (smaller, optimized for inference)
     Console message confirming successful conversion
 
-Model Architecture
+
+### Model Architecture
 
 The CNN consists of:
 Layer	Output Shape	Purpose
@@ -111,15 +125,15 @@ Adjust these parameters in train.py to customize training:
 python
 
 IMAGE_SIZE = 128          
-# Input image dimensions (pixels)
+*Input image dimensions (pixels)*
 BATCH_SIZE = 16           
-# Number of images per batch
+*Number of images per batch*
 EPOCHS = 40               
-# Number of training epochs
+*Number of training epochs*
 LEARNING_RATE = 0.001     
-# Adam optimizer learning rate
+*Adam optimizer learning rate*
 
-Requirements
+## Requirements
 
 See requirements.txt for complete dependencies. Core packages:
 
@@ -127,14 +141,21 @@ See requirements.txt for complete dependencies. Core packages:
     Keras – High-level API (included with TensorFlow)
     NumPy – Numerical computing
 
-Workflow Example
-bash
+## Workflow Example
 
-# 1. Train the model on the dataset
+1. Train the model on the dataset
+
+```bash
   python train.py ./tomato_dataset trained_model.keras
-# 2. Convert to TensorFlow Lite for deployment
+```
+
+2. Convert to TensorFlow Lite for deployment
+
+```bash
   python convert.py trained_model.keras model.tflite
-# 3. Deploy model.tflite to mobile app or edge device
+```
+
+3. Deploy model.tflite to mobile app or edge device
 
 Output Files
 
