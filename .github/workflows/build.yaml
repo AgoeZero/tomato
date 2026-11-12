@@ -58,7 +58,7 @@ jobs:
        sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
     - name: Copy Tomato App
       run: |
-        cp -r tomato/tomato lambdanative/apps/
+        cp -r tomato lambdanative/apps/
     - name: Android build
       working-directory: lambdanative
       run: |
