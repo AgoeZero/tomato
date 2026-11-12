@@ -60,7 +60,7 @@ Portions of this project are based on `DemoCamera`, originally developed at the 
 
 ### TinyMaix
 
-This project uses the [TinyMaix](https://github.com/xxradar/TinyMaix) library by Lieff Lee and contributors.
+This project uses the [TinyMaix](https://github.com/sipeed/TinyMaix) library.
 
 TinyMaix is distributed under the Apache License 2.0. See [`LICENSE-THIRDPARTY`](LICENSE-THIRDPARTY) for licensing information.
 
