@@ -29,7 +29,6 @@ jobs:
       run: |
        rm -rf lambdanative
        git clone https://github.com/bkmgit/lambdanative.git -b tinymaix --no-single-branch
-       which g++
        cd lambdanative
     - name: setup android
       run: |
@@ -59,25 +58,17 @@ jobs:
        sed -i 's|SYS_CC="gcc $SYS|SYS_CC="gcc-14 $SYS|g' targets/linux/host_linux
        sed -i 's|SYS_CXX="g++ $SYS|SYS_CXX="g++-14 $SYS|g' targets/linux/host_linux
        sed -i 's|gcc -Werror|gcc-14 -Werror|g' targets/linux/check-libraries
-    - name: Copy Tomato App
+    - name: Copy app App
       run: |
-        rm -rf tomato
-        git clone https://github.com/AgoeZero/tomato.git
-        cp -r tomato/tomato lambdanative/apps/
-    - name: Linux build
-      working-directory: lambdanative
-      run: |
-        ls -al modules
-        ./configure tomato --verbose
-        make
+        cp -r tomato lambdanative/apps/TomatoDiseaseClassifier
     - name: Android build
       working-directory: lambdanative
       run: |
         sed -i 's/python/python3/g' targets/android/check-tools
         mkdir -p ~/.cache/lambdanative/android/support
-        ./configure tomato --verbose android debug
+        ./configure TomatoDiseaseClassifier --verbose android
         make || { echo "Android build failed"; cat config.log; exit 1; }
-    - name: Debug APK output
+    - name: APK output
       run: |
         ls -R ~/.cache/lambdanative/packages/
         find $GITHUB_WORKSPACE -name "*.apk"
